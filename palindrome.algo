@@ -1,0 +1,41 @@
+/* This algorihtm checks if a word is palindrome
+that is, word is a palindrome if only if it can be read from left to right and vice-versa.
+for exapmle: refer; gag; kayak; php; radar. 
+*/
+
+ALGORITHM palindrome_checker
+VAR
+    testWord, testResult : STRING
+BEGIN
+    Write ("Enter a word to check if it is a palindrome: ")
+    Read (testWord)                                         // takes a String input from users ad stores it in the testWord variable
+    testResult = palindrome(testWord)                       // apply the function palindrome on user's input
+    Write (testResult)                                      // print whether testWord is palindrome or not.
+END
+
+
+FUNCTION palindrome(word : STRING) : STRING           // function named palindrome accepts STRING
+VAR
+    tag, trimmed : STRING := " "                      // declare 'tag' and 'trimmed' as a string variables with no content
+    i : INTEGER                                     // declare i (counter) as integer
+    n: INTEGER := word.length                       // declare n as interger to hold word length
+
+BEGIN
+    IF (n < 2 OR n = " ") THEN                      // BASE CASE 1: if length of string is < 2, terminate function and return 'word is a palindrome'
+            tag = "word is a palindrome"        
+            RETURN tag 
+    ELSE_IF
+            (word[0] <> word[n-1]) THEN               // check if the letters located at the ends of the string is not matching.
+            tag = "word is not a palindrome"        // return word is not a palindrome
+            RETURN tag
+    ELSE 
+        FOR i FROM 1 TO n-2 STEP 1  DO              // use a loop to reduce word by removing first and last letters
+            trimmed = trimmed + word[i]             // trimmed stores a new word from second to second-to-last character
+        END_FOR
+        tag = palindrome(trimmed)                   // perform recursion on trimmed word to check all over again
+        RETURN tag                                  // return the result from the recursive call
+    END_IF
+END
+
+
+
